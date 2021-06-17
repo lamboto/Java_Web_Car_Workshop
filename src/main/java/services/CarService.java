@@ -9,5 +9,5 @@ public interface CarService {
 
     void create(String brand, String model, String year, String engineType, int userId);
 
-    List<Car> getAll();
+    List<CarServiceModel> getAll();
 }

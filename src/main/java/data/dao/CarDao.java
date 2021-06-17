@@ -9,6 +9,6 @@ import java.util.List;
 public interface CarDao {
     void create(Car car);
 
-    List<Car> getAll();
+    List<CarServiceModel> getAll();
 
 }

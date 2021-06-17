@@ -37,7 +37,7 @@ public class CarDaoImpl implements CarDao {
     }
 
     @Override
-    public List<Car> getAll() {
+    public List<CarServiceModel> getAll() {
         List<Car> cars = new ArrayList<>();
         try (Connection connection = this.connector.getConnection();
 
@@ -55,15 +55,14 @@ public class CarDaoImpl implements CarDao {
                 String username = rs.getString("username");
 
 
-
                 cars.add(new Car(brand, model, year, Engine.valueOf(engine), username));
             }
         } catch (SQLException e) {
             printSQLException(e);
         }
-        return cars; //cars.stream()
-               // .map(car -> mapper.map(car, CarServiceModel.class))
-               // .collect(Collectors.toList());
+        return cars.stream()
+                .map(car -> mapper.map(car, CarServiceModel.class))
+                .collect(Collectors.toList());
     }
 
 
