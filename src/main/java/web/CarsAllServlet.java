@@ -1,5 +1,6 @@
 package web;
 
+import data.entity.Car;
 import data.view.CarViewModel;
 import org.modelmapper.ModelMapper;
 import services.base.CarServiceImpl;
@@ -21,10 +22,10 @@ public class CarsAllServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<CarViewModel> cars = carService.getAll()
-                .stream()
-                .map(car -> this.mapper.map(car, CarViewModel.class))
-                .collect(Collectors.toList());
+        List<Car> cars = carService.getAll();
+               //.stream()
+               //.map(car -> this.mapper.map(car, CarViewModel.class))
+               //.collect(Collectors.toList());
 
 
         // ViewModel<List<CarViewModel>> viewModel = new ViewModel<>(cars);
