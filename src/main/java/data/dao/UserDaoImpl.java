@@ -29,6 +29,28 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public User selectUserById(int id) {
+        User user = null;
+        try (Connection connection = connector.getConnection();
+
+             PreparedStatement preparedStatement = connection.prepareStatement(Query.SELECT_USER_BY_ID)) {
+            preparedStatement.setInt(1, id);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                String username = rs.getString("username");
+                String password = rs.getString("password");
+                String email = rs.getString("email");
+                user = new User(id, username, password, email);
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return user;
+    }
+
+    @Override
     public User selectUserByUsername(String username) {
         User user = null;
         try (Connection connection = connector.getConnection();
@@ -49,8 +71,6 @@ public class UserDaoImpl implements UserDao {
         }
         return user;
     }
-
-
 
 
     private void printSQLException(SQLException ex) {

@@ -3,6 +3,7 @@ package data.dao;
 import config.DataBaseConnector;
 import data.entity.Car;
 import data.entity.Engine;
+import data.entity.User;
 import data.service.CarServiceModel;
 import org.modelmapper.ModelMapper;
 import query.Query;
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
 
 public class CarDaoImpl implements CarDao {
     private final DataBaseConnector connector = new DataBaseConnector();
+    private final UserDaoImpl userDao = new UserDaoImpl();
     private final ModelMapper mapper = new ModelMapper();
 
     @Override
@@ -27,6 +29,7 @@ public class CarDaoImpl implements CarDao {
             preparedStatement.setString(2, car.getModel());
             preparedStatement.setString(3, car.getYear());
             preparedStatement.setString(4, car.getEngine().name());
+            preparedStatement.setInt(5, car.getUserId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             printSQLException(e);
@@ -38,19 +41,20 @@ public class CarDaoImpl implements CarDao {
         List<Car> cars = new ArrayList<>();
         try (Connection connection = this.connector.getConnection();
 
-             PreparedStatement preparedStatement = connection.prepareStatement(Query.SELECT_ALL_CARS)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(Query.SELECT_ALL_CARS_WITH_USER)) {
             System.out.println(preparedStatement);
 
             ResultSet rs = preparedStatement.executeQuery();
 
 
             while (rs.next()) {
-                int id = rs.getInt("id");
                 String brand = rs.getString("brand");
                 String model = rs.getString("model");
                 String year = rs.getString("year");
                 String engine = rs.getString("engine");
-                cars.add(new Car(id, brand, model, year, Engine.valueOf(engine)));
+                int userId = rs.getInt("id");
+
+                cars.add(new Car(brand, model, year, Engine.valueOf(engine), userId));
             }
         } catch (SQLException e) {
             printSQLException(e);

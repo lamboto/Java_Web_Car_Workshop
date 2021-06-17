@@ -8,6 +8,8 @@ public class CarServiceModel {
     private String model;
     private String year;
     private Engine engine;
+    private int userId;
+
 
     public String getBrand() {
         return brand;
@@ -41,5 +43,11 @@ public class CarServiceModel {
         this.engine = engine;
     }
 
+    public int getUserId() {
+        return userId;
+    }
 
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
 }

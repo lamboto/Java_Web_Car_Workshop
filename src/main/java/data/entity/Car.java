@@ -6,6 +6,7 @@ public class Car {
     private String model;
     private String year;
     private Engine engine;
+    private int userId;
 
 
     public Car() {
@@ -18,12 +19,29 @@ public class Car {
         this.engine = engine;
     }
 
+    public Car(String brand, String model, String year, Engine engine, int userId) {
+        this.brand = brand;
+        this.model = model;
+        this.year = year;
+        this.engine = engine;
+        this.userId = userId;
+    }
+
     public Car(int id, String brand, String model, String year, Engine engine) {
         this.id = id;
         this.brand = brand;
         this.model = model;
         this.year = year;
         this.engine = engine;
+    }
+
+    public Car(int id, String brand, String model, String year, Engine engine, int userId) {
+        this.id = id;
+        this.brand = brand;
+        this.model = model;
+        this.year = year;
+        this.engine = engine;
+        this.userId = userId;
     }
 
     public int getId() {
@@ -66,4 +84,11 @@ public class Car {
         this.engine = engine;
     }
 
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
 }

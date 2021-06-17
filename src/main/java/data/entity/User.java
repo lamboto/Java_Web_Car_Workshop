@@ -1,11 +1,15 @@
 package data.entity;
 
+import java.util.Set;
+
 public class User {
 
     private int id;
     private String username;
     private String password;
     private String email;
+
+
 
     public User() {
     }

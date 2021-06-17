@@ -1,5 +1,6 @@
 package web;
 
+import data.entity.User;
 import data.service.UserLoginServiceModel;
 import services.base.UserServiceImpl;
 
@@ -25,12 +26,12 @@ public class UserLoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
-        UserLoginServiceModel user = this.userService.login(username, password);
+        User user = this.userService.login(username, password);
         if (user == null) {
             resp.sendRedirect("/users/login");
         } else {
             req.getSession()
-                    .setAttribute("user",user.getUsername());
+                    .setAttribute("user", user);
             resp.sendRedirect("/home");
         }
     }

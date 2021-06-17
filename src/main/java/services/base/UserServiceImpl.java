@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserLoginServiceModel login(String username, String password) {
+    public User login(String username, String password) {
         User user = userDao.selectUserByUsername(username);
         if (user == null) {
             return null;
@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
             return null;
         }
 
-        return mapper.map(user, UserLoginServiceModel.class);
+        return user;
     }
 
 

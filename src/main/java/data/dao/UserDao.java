@@ -9,4 +9,5 @@ public interface UserDao {
 
     User selectUserByUsername(String username);
 
+    User selectUserById(int id);
 }
